@@ -1,3 +1,4 @@
+
 async function loadBubbleSeries() {
   const response = await fetch("data.csv");
   const text = await response.text();
@@ -5,7 +6,8 @@ async function loadBubbleSeries() {
 }
 
 function csvTextToBubbleSeries(csvText) {
-  const lines = csvText.trim().split('\n').map(l => l.trim()).filter(Boolean);
+  const lines = csvText.trim().split('\n')
+    .map(l => l.trim()).filter(l => l.length > 0);
   const [header, ...dataRows] = lines;
   const cols = header.split(',').map(h => h.trim().toLowerCase());
   const idx = {
@@ -16,14 +18,12 @@ function csvTextToBubbleSeries(csvText) {
     colorValue: cols.indexOf('colorvalue'),
   };
 
-  const missing = Object.entries(idx).filter(([,i]) => i === -1).map(([k]) => k);
-  if (missing.length) throw new Error(`Missing columns: ${missing.join(', ')}`);
-
-  // Single series, all points inside .data[]
+  // ✅ Single series — all points together so colorAxis applies
   return [{
     type: 'bubble',
     name: 'Industries',
-    colorKey: 'colorValue',   // tells Highcharts which field drives colorAxis
+    colorKey: 'colorValue',      // ← key line: maps colorValue → colorAxis
+    showInLegend: false,         // the colorAxis acts as the legend for color
     data: dataRows.map(row => {
       const cells = row.split(',').map(c => c.trim());
       return {
@@ -37,10 +37,7 @@ function csvTextToBubbleSeries(csvText) {
   }];
 }
 
-
-// drawChart as an async function
 async function drawChart() {
-  // await the series data before building the chart
   const series = await loadBubbleSeries();
 
   Highcharts.chart("container", {
@@ -49,33 +46,22 @@ async function drawChart() {
       plotBorderWidth: 1,
       zoomType: "xy"
     },
-    
     title: {
       text: "Job Characteristics by Industry in New York City, 2024"
     },
-    
     subtitle: {
-      text: 'Source: Census Bureau\'s American Community Survey One-Year Public Use Microdata'
+      text: "Source: Census Bureau's American Community Survey One-Year PUMS"
     },
-    
     xAxis: {
       gridLineWidth: 1,
       title: { text: 'Ratio of Part-Time to Full-Time Workers' },
-      labels: { format: '{value}' },
       plotLines: [{
-        dashStyle: 'dot',
-        width: 2,
-        value: 0.5,
-        label: {
-          rotation: 0,
-          y: 50,
-          style: { fontStyle: 'italic' },
-          text: 'Ratio Part-time Full-time'
-        },
+        dashStyle: 'dot', width: 2, value: 0.5,
+        label: { rotation: 0, y: 50, style: { fontStyle: 'italic' },
+                 text: 'Ratio Part-time Full-time' },
         zIndex: 3
       }]
     },
-    
     yAxis: {
       startOnTick: false,
       endOnTick: false,
@@ -83,60 +69,39 @@ async function drawChart() {
       labels: { format: '{value}%' },
       maxPadding: 0.1,
       plotLines: [{
-        dashStyle: 'dot',
-        width: 2,
-        value: 1,
-        label: {
-          align: 'right',
-          style: { fontStyle: 'italic' },
-          text: 'Equal to Citywide Median Wage',
-          x: 0.5
-        },
+        dashStyle: 'dot', width: 2, value: 1,
+        label: { align: 'right', style: { fontStyle: 'italic' },
+                 text: 'Equal to Citywide Median Wage', x: 0.5 },
         zIndex: 3
       }]
     },
-    
-    tooltip: {
-  useHTML: true,
-  // Use point.name instead of series.name (since all points share one series now)
-  pointFormat:
-    "<b>{point.name}</b><br/>" +
-    "x: {point.x}<br/>" +
-    "y: {point.y}<br/>" +
-    "z: {point.z}<br/>" +
-    "color value: {point.colorValue}"
-},
-    
     colorAxis: {
-  min: -0.3,
-  max: 0.3,
-  stops: [
-    [0,   '#3060cf'],
-    [0.5, '#fffbbc'],
-    [1,   '#c4463a']
-  ],
-  labels: { format: '{value}' }  // drop % if colorValue isn't a percentage
-},
-    
+      min: -0.3,
+      max: 0.3,
+      stops: [
+        [0,   '#3060cf'],
+        [0.5, '#fffbbc'],
+        [1,   '#c4463a']
+      ],
+      labels: { format: '{value}' },
+      // ✅ This renders the gradient color scale bar in the legend area
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'middle'
+    },
+    tooltip: {
+      useHTML: true,
+      // ✅ point.name works because each point has a name property
+      pointFormat:
+        "<b>{point.name}</b><br/>" +
+        "Part-time ratio: {point.x}<br/>" +
+        "Wage ratio: {point.y}%<br/>" +
+        "Employment (z): {point.z}<br/>" +
+        "Color value: {point.colorValue}"
+    },
     legend: {
-  enabled: true,
-  // The colorAxis scale will render as a gradient legend bar automatically
-  // If you also want per-point labels, use the point.name in the data labels below
-},
-
-    plotOptions: {
-  bubble: {
-    // Show industry name as a label on each bubble
-    dataLabels: {
       enabled: true,
-      format: '{point.name}',
-      style: { textOutline: 'none' }
-    }
-  }
-},
-    
-    
-    // spread series directly, not nested in an object
+    },
     series: series
   });
 }
