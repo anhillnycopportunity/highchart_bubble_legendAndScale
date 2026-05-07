@@ -1,4 +1,4 @@
-series,x,y,z,color_value
+name,x,y,z,colorValue
 Education/Health/Human Svcs,0.507662441,0.796007304,1191410,0.06946545
 Entertainment Svcs,0.794901599,0.55500016,444722,0.03713413
 Extraction/Construction,0.411953983,0.696378461,225832,0.04256308
