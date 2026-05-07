@@ -159,7 +159,10 @@ colorAxis: {
   showInLegend: true,
   labels: {
     format: '{value}'
-  }
+  },
+  title: {
+            text: 'Racial Representation Ratio'
+        }
 },
 
 
