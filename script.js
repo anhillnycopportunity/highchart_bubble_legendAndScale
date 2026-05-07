@@ -5,12 +5,7 @@ async function loadBubbleSeries() {
 }
 
 function csvTextToBubbleSeries(csvText) {
-  const lines = csvText
-    .trim()
-    .split('\n')
-    .map(line => line.trim())
-    .filter(line => line.length > 0);
-
+  const lines = csvText.trim().split('\n').map(l => l.trim()).filter(Boolean);
   const [header, ...dataRows] = lines;
   const cols = header.split(',').map(h => h.trim().toLowerCase());
   const idx = {
@@ -21,27 +16,27 @@ function csvTextToBubbleSeries(csvText) {
     colorValue: cols.indexOf('colorvalue'),
   };
 
-  const missing = Object.entries(idx)
-    .filter(([, i]) => i === -1)
-    .map(([key]) => key);
-  if (missing.length > 0) {
-    throw new Error(`CSV is missing required columns: ${missing.join(', ')}`);
-  }
+  const missing = Object.entries(idx).filter(([,i]) => i === -1).map(([k]) => k);
+  if (missing.length) throw new Error(`Missing columns: ${missing.join(', ')}`);
 
-  return dataRows.map(row => {
-    const cells = row.split(',').map(c => c.trim());
-    return {
-      type: 'bubble',
-      name: cells[idx.name],
-      data: [{
+  // Single series, all points inside .data[]
+  return [{
+    type: 'bubble',
+    name: 'Industries',
+    colorKey: 'colorValue',   // tells Highcharts which field drives colorAxis
+    data: dataRows.map(row => {
+      const cells = row.split(',').map(c => c.trim());
+      return {
+        name:       cells[idx.name],
         x:          parseFloat(cells[idx.x]),
         y:          parseFloat(cells[idx.y]),
         z:          parseFloat(cells[idx.z]),
         colorValue: parseFloat(cells[idx.colorValue]),
-      }]
-    };
-  });
+      };
+    })
+  }];
 }
+
 
 // drawChart as an async function
 async function drawChart() {
@@ -54,12 +49,15 @@ async function drawChart() {
       plotBorderWidth: 1,
       zoomType: "xy"
     },
+    
     title: {
       text: "Job Characteristics by Industry in New York City, 2024"
     },
+    
     subtitle: {
       text: 'Source: Census Bureau\'s American Community Survey One-Year Public Use Microdata'
     },
+    
     xAxis: {
       gridLineWidth: 1,
       title: { text: 'Ratio of Part-Time to Full-Time Workers' },
@@ -77,6 +75,7 @@ async function drawChart() {
         zIndex: 3
       }]
     },
+    
     yAxis: {
       startOnTick: false,
       endOnTick: false,
@@ -96,32 +95,47 @@ async function drawChart() {
         zIndex: 3
       }]
     },
+    
     tooltip: {
-      useHTML: true,
-      pointFormat:
-        "<b>{series.name}</b><br/>" +
-        "x: {point.x}<br/>" +
-        "y: {point.y}<br/>" +
-        "z: {point.z}"
-    },
+  useHTML: true,
+  // Use point.name instead of series.name (since all points share one series now)
+  pointFormat:
+    "<b>{point.name}</b><br/>" +
+    "x: {point.x}<br/>" +
+    "y: {point.y}<br/>" +
+    "z: {point.z}<br/>" +
+    "color value: {point.colorValue}"
+},
+    
     colorAxis: {
-      min: -0.3,
-      max: 0.3,
-      // stops must be normalized 0–1 positions
-      stops: [
-        [0,   '#3060cf'],
-        [0.5, '#fffbbc'],
-        [1,   '#c4463a']
-      ],
-      labels: { format: '{value}%' }
-    },
-    // single merged legend block
+  min: -0.3,
+  max: 0.3,
+  stops: [
+    [0,   '#3060cf'],
+    [0.5, '#fffbbc'],
+    [1,   '#c4463a']
+  ],
+  labels: { format: '{value}' }  // drop % if colorValue isn't a percentage
+},
+    
     legend: {
+  enabled: true,
+  // The colorAxis scale will render as a gradient legend bar automatically
+  // If you also want per-point labels, use the point.name in the data labels below
+},
+
+    plotOptions: {
+  bubble: {
+    // Show industry name as a label on each bubble
+    dataLabels: {
       enabled: true,
-      layout: 'vertical',
-      align: 'right',
-      verticalAlign: 'middle'
-    },
+      format: '{point.name}',
+      style: { textOutline: 'none' }
+    }
+  }
+},
+    
+    
     // spread series directly, not nested in an object
     series: series
   });
