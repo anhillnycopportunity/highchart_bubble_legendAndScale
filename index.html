@@ -35,22 +35,28 @@
 
 <body>
 
-  <!-- Flex wrapper: chart + legend side by side -->
-  <div style="display:flex; align-items:flex-start; gap:16px; padding:16px;">
+  <!-- align-items:stretch makes both children the same height -->
+  <div style="display:flex; align-items:stretch; gap:0; padding:16px;">
 
-    <!-- Chart takes up remaining space -->
+    <!-- Chart -->
     <div id="container" class="highcharts-light" style="flex:1; height:600px;"></div>
 
-    <!-- Custom legend: fixed width, pushed down to clear the chart title area -->
+    <!-- Legend styled to match the Highcharts box -->
     <div id="custom-legend" style="
       flex-shrink: 0;
       width: 200px;
       padding-top: 80px;
+      padding-left: 8px;
+      padding-right: 16px;
       display: flex;
       flex-direction: column;
       gap: 8px;
-      font-family: sans-serif;
-      font-size: 13px;
+      font-family: 'Lucida Grande', 'Lucida Sans Unicode', Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      background-color: #ffffff;
+      border: 1px solid #e6e6e6;
+      border-left: none;
+      box-sizing: border-box;
     "></div>
 
   </div>
