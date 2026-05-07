@@ -87,8 +87,23 @@ function buildLegend(points, stops, min, max) {
     legend.appendChild(item);
   });
 }
+
+// config colors for scale/legend
+const COLOR_STOPS = [
+  [0,   '#3060cf'],
+  [0.5, '#fffbbc'],
+  [1,   '#c4463a']
+];
+const COLOR_MIN = -0.3;
+const COLOR_MAX =  0.3;
+
+
+
+// DRAW CHART
 async function drawChart() {
   const series = await loadBubbleSeries();
+  const points = series[0].data;   // all your point objects
+
 
   Highcharts.chart("container", {
     chart: {
@@ -125,23 +140,10 @@ async function drawChart() {
         zIndex: 3
       }]
     },
-    colorAxis: {
-      min: -0.3,
-      max: 0.3,
-      stops: [
-        [0,   '#3060cf'],
-        [0.5, '#fffbbc'],
-        [1,   '#c4463a']
-      ],
-      labels: { format: '{value}' },
-      // ✅ This renders the gradient color scale bar in the legend area
-      layout: 'vertical',
-      align: 'right',
-      verticalAlign: 'middle'
-    },
+    
     tooltip: {
       useHTML: true,
-      // ✅ point.name works because each point has a name property
+      // point.name works because each point has a name property
       pointFormat:
         "<b>{point.name}</b><br/>" +
         "Part-time ratio: {point.x}<br/>" +
@@ -149,11 +151,19 @@ async function drawChart() {
         "Employment (z): {point.z}<br/>" +
         "Color value: {point.colorValue}"
     },
-    legend: {
-      enabled: true,
+
+ colorAxis: {
+      min: COLOR_MIN,
+      max: COLOR_MAX,
+      stops: COLOR_STOPS,
+      // hide the built-in colorAxis legend bar if you want only the custom one:
+      showInLegend: false
     },
+    legend: { enabled: false },   // disable Highcharts' own legend
     series: series
   });
+  // Build the custom HTML legend from the same data
+  buildLegend(points, COLOR_STOPS, COLOR_MIN, COLOR_MAX);
 }
 
 drawChart();
