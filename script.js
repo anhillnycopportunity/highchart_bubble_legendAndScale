@@ -1,10 +1,43 @@
+// interpolate color
+function interpolateColor(stops, value, min, max) {
+  const t = Math.max(0, Math.min(1, (value - min) / (max - min)));
+  
+  // Find which stop pair we're between
+  let lower = stops[0], upper = stops[stops.length - 1];
+  for (let i = 0; i < stops.length - 1; i++) {
+    if (t >= stops[i][0] && t <= stops[i + 1][0]) {
+      lower = stops[i];
+      upper = stops[i + 1];
+      break;
+    }
+  }
+  
+  // Normalize t within this stop segment
+  const segT = (t - lower[0]) / (upper[0] - lower[0]) || 0;
+  
+  // Parse hex colors and interpolate RGB
+  const parse = hex => [
+    parseInt(hex.slice(1, 3), 16),
+    parseInt(hex.slice(3, 5), 16),
+    parseInt(hex.slice(5, 7), 16)
+  ];
+  const [r1, g1, b1] = parse(lower[1]);
+  const [r2, g2, b2] = parse(upper[1]);
+  
+  const r = Math.round(r1 + (r2 - r1) * segT);
+  const g = Math.round(g1 + (g2 - g1) * segT);
+  const b = Math.round(b1 + (b2 - b1) * segT);
+  return `rgb(${r},${g},${b})`;
+}
 
+// get data
 async function loadBubbleSeries() {
   const response = await fetch("data.csv");
   const text = await response.text();
   return csvTextToBubbleSeries(text);
 }
 
+// structure data
 function csvTextToBubbleSeries(csvText) {
   const lines = csvText.trim().split('\n')
     .map(l => l.trim()).filter(l => l.length > 0);
@@ -18,7 +51,7 @@ function csvTextToBubbleSeries(csvText) {
     colorValue: cols.indexOf('colorvalue'),
   };
 
-  // ✅ Single series — all points together so colorAxis applies
+  // Single series — all points together so colorAxis applies
   return [{
     type: 'bubble',
     name: 'Industries',
@@ -37,6 +70,23 @@ function csvTextToBubbleSeries(csvText) {
   }];
 }
 
+// build legend
+function buildLegend(points, stops, min, max) {
+  const legend = document.getElementById('custom-legend');
+  legend.innerHTML = ''; // clear if redrawing
+
+  points.forEach(point => {
+    const color = interpolateColor(stops, point.colorValue, min, max);
+
+    const item = document.createElement('div');
+    item.className = 'legend-item';
+    item.innerHTML = `
+      <span class="legend-dot" style="background:${color}"></span>
+      <span class="legend-label">${point.name}</span>
+    `;
+    legend.appendChild(item);
+  });
+}
 async function drawChart() {
   const series = await loadBubbleSeries();
 
