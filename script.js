@@ -152,14 +152,18 @@ async function drawChart() {
         "Color value: {point.colorValue}"
     },
 
- colorAxis: {
-      min: COLOR_MIN,
-      max: COLOR_MAX,
-      stops: COLOR_STOPS,
-      // hide the built-in colorAxis legend bar if you want only the custom one:
-      showInLegend: true
-    },
-    legend: { enabled: false },   // disable Highcharts' own legend
+colorAxis: {
+  min: COLOR_MIN,
+  max: COLOR_MAX,
+  stops: COLOR_STOPS,
+  showInLegend: true,
+  labels: {
+    format: '{value}'
+  }
+},
+
+
+    legend: { enabled: true },  
     series: series
   });
   // Build the custom HTML legend from the same data
