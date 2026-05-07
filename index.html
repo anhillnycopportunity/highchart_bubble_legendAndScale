@@ -11,46 +11,52 @@
   <script src="https://code.highcharts.com/modules/export-data.js"></script>
   <script src="https://code.highcharts.com/modules/accessibility.js"></script>
   <script src="https://code.highcharts.com/themes/adaptive.js"></script>
-   <script src="https://code.highcharts.com/modules/coloraxis.js"></script>
+  <script src="https://code.highcharts.com/modules/coloraxis.js"></script>
+
+  <!-- your existing head content -->
+  <style>
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+    .legend-dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+    }
+  </style>
+
 </head>
 
-  <body>
+<body>
 
-   <div id="container" class="highcharts-light"; style="width:100%; height:600px;"></div>
+  <!-- Flex wrapper: chart + legend side by side -->
+  <div style="display:flex; align-items:flex-start; gap:16px; padding:16px;">
 
-  <!-- Your custom JS -->
+    <!-- Chart takes up remaining space -->
+    <div id="container" class="highcharts-light" style="flex:1; height:600px;"></div>
+
+    <!-- Custom legend: fixed width, pushed down to clear the chart title area -->
+    <div id="custom-legend" style="
+      flex-shrink: 0;
+      width: 200px;
+      padding-top: 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-family: sans-serif;
+      font-size: 13px;
+    "></div>
+
+  </div>
+
   <script src="script.js"></script>
 
-     <!-- legend -->
-    <div id="container" style="width:100%; height:600px;"></div>
-
-<div id="custom-legend" style="
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 20px;
-  padding: 12px 16px;
-  font-family: sans-serif;
-  font-size: 13px;
-  max-width: 900px;
-  margin: 0 auto;
-"></div>
-
-<style>
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    white-space: nowrap;
-  }
-  .legend-dot {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    border: 1px solid rgba(0,0,0,0.15);
-  }
-</style>
-
 </body>
+  
 </html>
