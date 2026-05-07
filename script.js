@@ -157,7 +157,7 @@ async function drawChart() {
       max: COLOR_MAX,
       stops: COLOR_STOPS,
       // hide the built-in colorAxis legend bar if you want only the custom one:
-      showInLegend: false
+      showInLegend: true
     },
     legend: { enabled: false },   // disable Highcharts' own legend
     series: series
