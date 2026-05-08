@@ -5,3 +5,5 @@ FIRST Main branch: initial attempt. The color scale portion didn't work, but the
 SECOND Alt branch (from main): got the color scsle to work by putting data back into single series, but this then reverted the legend to only show one single "Industry" point
 
 THIRD Legend branch (from alt): adding code to create a custom legend
+
+FOURTH legend_at_bottom (from legend branch): reposition legend to be below chart
