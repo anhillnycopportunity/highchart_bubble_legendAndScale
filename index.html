@@ -13,7 +13,6 @@
   <script src="https://code.highcharts.com/themes/adaptive.js"></script>
   <script src="https://code.highcharts.com/modules/coloraxis.js"></script>
 
-  <!-- your existing head content -->
   <style>
     .legend-item {
       display: flex;
@@ -30,38 +29,31 @@
       border: 1px solid rgba(0, 0, 0, 0.15);
     }
   </style>
-
 </head>
-
 <body>
 
-  <!-- align-items:stretch makes both children the same height -->
-  <div style="display:flex; align-items:stretch; gap:0; padding:16px;">
+  <div style="display: flex; flex-direction: column; gap: 0; padding: 16px;">
 
     <!-- Chart -->
-    <div id="container" class="highcharts-light" style="flex:1;"></div>
+    <div id="container" class="highcharts-light" style="width: 100%;"></div>
 
-    <!-- Legend styled to match the Highcharts box -->
+    <!-- Legend below chart, 2–3 columns -->
     <div id="custom-legend" style="
-    flex-shrink: 0;
-    width: 220px;
-    padding-top: 80px;
-    padding-left: 8px;
-    padding-right: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    font-family: 'Lucida Grande', 'Lucida Sans Unicode', Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    background-color: #ffffff;
-    border-left: none;
-    box-sizing: border-box;
-  "></div>
+      width: 100%;
+      padding: 12px 16px;
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      justify-content: start;
+      gap: 8px 24px;
+      font-family: 'Lucida Grande', 'Lucida Sans Unicode', Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      background-color: #ffffff;
+      border-top: none;
+      box-sizing: border-box;
+    "></div>
 
   </div>
 
   <script src="script.js"></script>
-
 </body>
-  
 </html>
