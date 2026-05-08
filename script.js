@@ -89,10 +89,9 @@ function buildLegend(points, stops, min, max) {
 }
 
 // config colors for scale/legend  
-// original center yellow #fffbbc
 const COLOR_STOPS = [
   [0,   '#3060cf'],
-  [0.5, '#776966'],
+  [0.5, '#fffbbc'],
   [1,   '#c4463a']
 ];
 const COLOR_MIN = -0.3;
@@ -165,14 +164,16 @@ colorAxis: {
   },
   title: {
             text: 'Racial Representation Ratio'
-        },
-  layout: 'vertical', // Ensure vertical layout
-    align: 'left',      // Position left
-    x: -50             // Move further left if needed
+        }
 },
 
 
-    legend: { enabled: true },  
+    legend: {
+  enabled: true,
+  layout: 'vertical',    // Makes the color scale vertical
+  align: 'right',        // Positions it on the right side
+  verticalAlign: 'middle' // Centers it vertically alongside the plot
+},
     series: series
   });
   // Build the custom HTML legend from the same data
