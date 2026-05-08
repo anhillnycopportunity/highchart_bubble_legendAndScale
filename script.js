@@ -88,10 +88,11 @@ function buildLegend(points, stops, min, max) {
   });
 }
 
-// config colors for scale/legend
+// config colors for scale/legend  
+// original center yellow #fffbbc
 const COLOR_STOPS = [
   [0,   '#3060cf'],
-  [0.5, '#fffbbc'],
+  [0.5, '#776966'],
   [1,   '#c4463a']
 ];
 const COLOR_MIN = -0.3;
