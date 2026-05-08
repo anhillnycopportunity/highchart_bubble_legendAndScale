@@ -110,7 +110,9 @@ async function drawChart() {
     chart: {
       type: 'bubble',
       plotBorderWidth: 1,
-      zoomType: "xy"
+      zoomType: "xy",
+      // Increase left margin to make room
+       marginLeft: 100 
     },
     title: {
       text: "Job Characteristics by Industry in New York City, 2024"
@@ -163,7 +165,10 @@ colorAxis: {
   },
   title: {
             text: 'Racial Representation Ratio'
-        }
+        },
+  layout: 'vertical', // Ensure vertical layout
+    align: 'left',      // Position left
+    x: -50             // Move further left if needed
 },
 
 
