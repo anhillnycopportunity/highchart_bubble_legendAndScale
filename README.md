@@ -7,3 +7,5 @@ SECOND Alt branch (from main): got the color scsle to work by putting data back 
 THIRD Legend branch (from alt): adding code to create a custom legend
 
 FOURTH legend_at_bottom (from legend branch): reposition legend to be below chart
+
+FIFTH five_color_legend (from legend_at_bottom): Restructure custom legend structure and specs to work with five colors, not just three
