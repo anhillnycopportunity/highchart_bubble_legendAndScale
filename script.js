@@ -138,15 +138,15 @@ async function drawChart() {
       title: { text: 'Ratio of Part-Time to Full-Time Workers' },
       plotLines: [{
         dashStyle: 'dot', width: 2, value: 0.5,
-        label: { rotation: 0, y: 50, style: { fontStyle: 'italic' },
-                 text: 'Ratio Part-time Full-time Workers' },
+        label: { rotation: 0, y: .5, style: { fontStyle: 'italic' },
+                 text: 'Ratio Part-time Full-time' },
         zIndex: 3
       }]
     },
     yAxis: {
       startOnTick: false,
       endOnTick: false,
-      title: { text: 'Percent Industry Median to Citywide Median Wage' },
+      title: { text: 'Industry Median as a Percent of Citywide Median Wage' },
       labels: { format: '{value}%' },
       maxPadding: 0.1,
       plotLines: [{
