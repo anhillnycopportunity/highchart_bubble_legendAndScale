@@ -126,13 +126,20 @@ async function drawChart() {
     subtitle: {
       text: "Source: Census Bureau's American Community Survey One-Year PUMS"
     },
+    plotOptions: {
+      bubble: {
+        marker: {
+            fillOpacity: 0.7 // Change this to your desired opacity
+              }
+          }
+      },
     xAxis: {
       gridLineWidth: 1,
       title: { text: 'Ratio of Part-Time to Full-Time Workers' },
       plotLines: [{
         dashStyle: 'dot', width: 2, value: 0.5,
         label: { rotation: 0, y: 50, style: { fontStyle: 'italic' },
-                 text: 'Ratio Part-time Full-time' },
+                 text: 'Ratio Part-time Full-time Workers' },
         zIndex: 3
       }]
     },
@@ -143,7 +150,7 @@ async function drawChart() {
       labels: { format: '{value}%' },
       maxPadding: 0.1,
       plotLines: [{
-        dashStyle: 'dot', width: 2, value: 1,
+        dashStyle: 'dot', width: 2, value: 100,
         label: { align: 'right', style: { fontStyle: 'italic' },
                  text: 'Equal to Citywide Median Wage', x: 0.5 },
         zIndex: 3
@@ -156,9 +163,9 @@ async function drawChart() {
       pointFormat:
         "<b>{point.name}</b><br/>" +
         "Part-time ratio: {point.x}<br/>" +
-        "Wage ratio: {point.y}%<br/>" +
-        "Employment (z): {point.z}<br/>" +
-        "Color value: {point.colorValue}"
+        "Percent of Citywide Median: {point.y}%<br/>" +
+        "Employment Count(z): {point.z}<br/>" +
+        "POC Representation Ratio: {point.colorValue}"
     },
 
 colorAxis: {
