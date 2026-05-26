@@ -9,3 +9,5 @@ THIRD Legend branch (from alt): adding code to create a custom legend
 FOURTH legend_at_bottom (from legend branch): reposition legend to be below chart
 
 FIFTH five_color_legend (from legend_at_bottom): Restructure custom legend structure and specs to work with five colors, not just three
+
+SIXTH improve_data_structure (from five_color_legend): Optimize data in csv to better reflect scales/percents and improve labels. Branching this out, bc it's actually proving more complicated than anticipated.
