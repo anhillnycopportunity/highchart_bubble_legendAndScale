@@ -1,13 +1,13 @@
-"series","x","y","z","rep"
-"Information",0.2,156.3,145782,-0.3
-"Financial",0.1,206.1,332075,-0.2
-"Professional",0.2,140.3,602716,-0.2
-"Wholesalers",0.2,100.5,57344,-0.1
-"Manufacturing",0.2,100.7,102446,0
-"Extraction/Construction",0.3,72.2,178327,0
-"Retailers",0.6,59.9,298781,0.1
-"Entertainment Svcs",0.6,57.7,342022,0.1
-"Other Svcs",0.5,62.8,165255,0.1
-"Education/Health/Human Svcs",0.4,77.1,1019238,0.1
-"International Affairs",0.1,95.8,146326,0.1
-"Transportation & Utilities",0.3,70.9,217569,0.2
+"series","x","y","z","colorValue"
+"Information",0.2,156.3,145782,-0.29
+"Financial",0.1,206.1,332075,-0.19
+"Professional",0.2,140.3,602716,-0.19
+"Wholesalers",0.2,100.5,57344,-0.06
+"Manufacturing",0.2,100.7,102446,0.01
+"Extraction/Construction",0.3,72.2,178327,0.03
+"Retailers",0.6,59.9,298781,0.06
+"Entertainment Svcs",0.6,57.7,342022,0.08
+"Other Svcs",0.5,62.8,165255,0.08
+"Education/Health/Human Svcs",0.4,77.1,1019238,0.09
+"International Affairs",0.1,95.8,146326,0.09
+"Transportation & Utilities",0.3,70.9,217569,0.23
