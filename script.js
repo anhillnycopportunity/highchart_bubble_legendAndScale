@@ -205,4 +205,4 @@ colorAxis: {
 
 drawChart();
 
-console.table(series); 
+console.log("x:", x, "y:", y, "z:", z); 
