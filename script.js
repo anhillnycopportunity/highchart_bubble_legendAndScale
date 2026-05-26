@@ -148,13 +148,13 @@ async function drawChart() {
       endOnTick: false,
       title: { text: 'Industry Median as a Percent of Citywide Median Wage' },
       labels: { format: '{value}%' },
-      maxPadding: 0.1,
-      plotLines: [{
-        dashStyle: 'dot', width: 2, value: 100,
-        label: { align: 'right', style: { fontStyle: 'italic' },
-                 text: 'Equal to Citywide Median Wage', x: 0.5 },
-        zIndex: 3
-      }]
+      maxPadding: 0.1 //,
+      //plotLines: [{
+        //dashStyle: 'dot', width: 2, value: 100,
+        //label: { align: 'right', style: { fontStyle: 'italic' },
+        //         text: 'Equal to Citywide Median Wage', x: 0.5 },
+        //zIndex: 3
+     // }]
     },
     
     tooltip: {
