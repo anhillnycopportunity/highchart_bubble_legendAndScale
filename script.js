@@ -204,3 +204,5 @@ colorAxis: {
 }
 
 drawChart();
+
+console.table(series); 
