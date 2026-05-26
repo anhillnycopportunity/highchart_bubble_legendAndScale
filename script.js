@@ -90,12 +90,18 @@ function buildLegend(points, stops, min, max) {
 
 // config colors for scale/legend  
 const COLOR_STOPS = [
+ // red, yellow, blue
+ [0, '#8B0000'],     
+    [0.25, '#E06030'],   
+    [0.5, '#F5C842'],    
+    [0.75, '#70B8D0'],    
+    [1, '#004880']  
   // purple grey green
- [0, '#8C3A6E'],     
-    [0.25, '#C07AA8'],   
-    [0.5, '#8A8A8E'],    
-    [0.75, '#70A880'],    
-    [1, '#206840']  
+ //[0, '#8C3A6E'],     
+     // [0.25, '#C07AA8'],   
+     // [0.5, '#8A8A8E'],    
+     // [0.75, '#70A880'],    
+     // [1, '#206840']  
   // Red, grey, blue
    // [0, '#B84A00'],     
     //[0.25, '#E09A70'],   
