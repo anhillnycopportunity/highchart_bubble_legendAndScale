@@ -141,7 +141,7 @@ async function drawChart() {
       title: { text: 'Ratio of Part-Time to Full-Time Workers' },
       plotLines: [{
         dashStyle: 'dot', width: 2, value: 0.5,
-        label: { rotation: 0, y: .5, style: { fontStyle: 'italic' },
+        label: { rotation: 0, y: 3, style: { fontStyle: 'italic' },
                  text: 'Ratio Part-time Full-time' },
         zIndex: 3
       }]
