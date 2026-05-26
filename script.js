@@ -126,13 +126,13 @@ async function drawChart() {
     subtitle: {
       text: "Source: Census Bureau's American Community Survey One-Year PUMS"
     },
-    plotOptions: {
-      bubble: {
-        marker: {
-            fillOpacity: 0.7 // Change this to your desired opacity
-              }
-          }
-      },
+    //plotOptions: {
+    //  bubble: {
+      //  marker: {
+      //      fillOpacity: 0.7 // Change this to your desired opacity
+     //         }
+      //    }
+     // },
     xAxis: {
       gridLineWidth: 1,
       title: { text: 'Ratio of Part-Time to Full-Time Workers' },
